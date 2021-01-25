@@ -39,11 +39,11 @@ CDSPositions = [[265, 21555], [265, 13461], [21563, 25384], [25393, 26220], [262
                 [27202, 27387], [27394, 27759], [27756, 27887], [27894, 28259], [28274, 29533], [29558, 29674]]
 
 refarray = []
-reference = "/home/armin/Desktop/COVID19/RSCU-Human.csv"
+reference = "./data/RSCU-Human.csv"
 
 global RefGenome
 
-fasta_reference = SeqIO.parse(open("/home/armin/Desktop/COVID19/COVID-19Genome.fa"), 'fasta')
+fasta_reference = SeqIO.parse(open("./data/COVID-19Genome.fa"), 'fasta')
 for i in fasta_reference:
     RefGenome = str(i.seq)
 
@@ -62,7 +62,7 @@ def RefProcess(address):
 
 
 def Compatibility(chromosome):
-    Input = open("/home/armin/Desktop/COVID19/Temp/Input.dat", 'w+')
+    Input = open("./tmp/Input.dat", 'w+')
     c = 0
 
     Input.write(">CDS" + str(c) + "\n")
@@ -73,9 +73,9 @@ def Compatibility(chromosome):
 
     bashCommand = "codonw Input.dat output.out output.blk -nomenu -nowarn -silent -cutot -rscu -machine"
     process = subprocess.Popen(bashCommand.split(), stdout=DEVNULL, stderr=DEVNULL,
-                               cwd='/home/armin/Desktop/COVID19/Temp')
+                               cwd='./tmp')
     output, error = process.communicate()
-    FileOut = open("/home/armin/Desktop/COVID19/Temp/output.blk", 'r')
+    FileOut = open("./tmp/output.blk", 'r')
     fr = FileOut.readlines()
     tarray = []  # RSCU of our chromosome
     for line in fr:
